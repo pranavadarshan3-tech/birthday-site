@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Happy Birthday janani</title>
+
+<style>
+body{
+font-family:Arial;
+text-align:center;
+background:linear-gradient(to right,#ff9a9e,#fad0c4);
+color:white;
+}
+
+h1{
+font-size:50px;
+margin-top:80px;
+}
+
+button{
+padding:15px 25px;
+font-size:18px;
+margin:10px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+background:white;
+color:#ff4b6e;
+}
+
+#message{
+font-size:25px;
+margin-top:30px;
+}
+
+img{
+width:200px;
+border-radius:15px;
+margin:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Happy Birthday My Dear Sister </h1>
+
+<p>You are not just my sister, you are my everything </p>
+
+<h2>📸 Memories</h2>
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+
+<h2>❓ Do you know who loves you the most?</h2>
+
+<button onclick="answer()">Mommy</button>
+<button onclick="answer()">Daddy</button>
+<button onclick="answer()">Pavi</button>
+<button onclick="correct()">Me</button>
+
+<div id="message"></div>
+
+<br><br>
+
+<button onclick="surprise()"> Open Birthday Surprise</button>
+
+<script>
+
+function answer(){
+document.getElementById("message").innerHTML =
+"Wrong  Try again!";
+}
+
+function correct(){
+document.getElementById("message").innerHTML =
+"Correct! I love you the most. Happy Birthday janani!";
+}
+
+function surprise(){
+document.getElementById("message").innerHTML =
+" Surprise! You are the best sister in the world. I'm lucky to have you!";
+}
+
+</script>
+
+</body>
+</html>
