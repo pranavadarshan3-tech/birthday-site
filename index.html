@@ -5,179 +5,181 @@
 <title>Birthday Surprise 🎂</title>
 
 <style>
-
 body{
-margin:0;
-font-family:Arial, sans-serif;
-background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-text-align:center;
-color:white;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  text-align:center;
+  color:white;
 }
 
+/* slides */
 .slide{
-display:none;
-height:100vh;
-justify-content:center;
-align-items:center;
-flex-direction:column;
+  display:none;
+  height:100vh;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
 }
 
 .active{
-display:flex;
+  display:flex;
 }
 
 button{
-padding:15px 30px;
-font-size:18px;
-border:none;
-border-radius:10px;
-background:#ff4d6d;
-color:white;
-cursor:pointer;
-margin-top:20px;
+  padding:15px 30px;
+  font-size:18px;
+  border:none;
+  border-radius:10px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  margin-top:20px;
 }
 
+/* images */
 img{
-width:300px;
-border-radius:15px;
-margin:10px;
+  width:300px;
+  border-radius:15px;
+  margin:10px;
 }
 
+/* confetti canvas */
 canvas{
-position:fixed;
-top:0;
-left:0;
-pointer-events:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none; /* VERY IMPORTANT */
+  z-index:0;
 }
 
+/* keep slides above canvas */
+.slide{
+  position:relative;
+  z-index:1;
+}
 </style>
 </head>
 
 <body>
 
-<audio id="music" autoplay loop>
+<audio autoplay loop>
 <source src="happybirthday.mp3" type="audio/mpeg">
 </audio>
 
 <canvas id="confetti"></canvas>
 
 <!-- Slide 1 -->
-
 <div id="slide1" class="slide active">
-
 <h1>🎁 I Have a Surprise For You 🎁</h1>
-
 <button onclick="nextSlide()">Open Surprise</button>
-
 </div>
 
 <!-- Slide 2 -->
-
 <div id="slide2" class="slide">
-
 <h1>🎂 Happy Birthday ❤️</h1>
-
 <p>You make the world brighter just by being in it.</p>
-
 <button onclick="showMemories()">See Memories 📸</button>
-
 </div>
 
 <!-- Slide 3 -->
-
 <div id="slide3" class="slide">
-
 <h1>Our Memories 📸</h1>
-
 <img src="images/photo1.jpg">
 <img src="images/photo2.jpg">
 <img src="images/photo3.jpg">
-
 <button onclick="finalSlide()">Final Message 💌</button>
-
 </div>
 
 <!-- Slide 4 -->
-
 <div id="slide4" class="slide">
-
 <h1>💖 Happy Birthday 💖</h1>
-
-<p>I hope this birthday brings you happiness, love, and laughter.</p>
-
+<p>I hope this birthday brings you happiness, love and laughter.</p>
 <h2>🎉 Enjoy Your Special Day 🎉</h2>
-
 </div>
 
 <script>
 
+/* slide functions */
+
 function nextSlide(){
-document.getElementById("slide1").classList.remove("active");
-document.getElementById("slide2").classList.add("active");
+document.getElementById("slide1").classList.remove("active")
+document.getElementById("slide2").classList.add("active")
 }
 
 function showMemories(){
-document.getElementById("slide2").classList.remove("active");
-document.getElementById("slide3").classList.add("active");
+document.getElementById("slide2").classList.remove("active")
+document.getElementById("slide3").classList.add("active")
 }
 
 function finalSlide(){
-document.getElementById("slide3").classList.remove("active");
-document.getElementById("slide4").classList.add("active");
+document.getElementById("slide3").classList.remove("active")
+document.getElementById("slide4").classList.add("active")
 }
 
-const canvas = document.getElementById("confetti");
-const ctx = canvas.getContext("2d");
+/* confetti */
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const canvas=document.getElementById("confetti")
+const ctx=canvas.getContext("2d")
 
-const pieces=[];
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
 
-for(let i=0;i<120;i++){
+let pieces=[]
+
+for(let i=0;i<100;i++){
 pieces.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
 r:Math.random()*6+2,
-d:Math.random()*120
-});
+d:Math.random()*100
+})
 }
 
-let angle=0;
+let angle=0
 
 function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
 
-ctx.fillStyle="white";
-ctx.beginPath();
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+ctx.fillStyle="white"
+ctx.beginPath()
 
 for(let i=0;i<pieces.length;i++){
-let p=pieces[i];
-ctx.moveTo(p.x,p.y);
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2,true);
+let p=pieces[i]
+ctx.moveTo(p.x,p.y)
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2,true)
 }
 
-ctx.fill();
-update();
+ctx.fill()
+
+update()
+
 }
 
 function update(){
-angle+=0.01;
+
+angle+=0.01
 
 for(let i=0;i<pieces.length;i++){
-let p=pieces[i];
 
-p.y+=Math.cos(angle+p.d)+1+p.r/2;
-p.x+=Math.sin(angle);
+let p=pieces[i]
+
+p.y+=Math.cos(angle+p.d)+1+p.r/2
+p.x+=Math.sin(angle)
 
 if(p.y>canvas.height){
-pieces[i].y=-10;
-pieces[i].x=Math.random()*canvas.width;
-}
-}
+p.y=-10
+p.x=Math.random()*canvas.width
 }
 
-setInterval(draw,20);
+}
+
+}
+
+setInterval(draw,20)
 
 </script>
 
